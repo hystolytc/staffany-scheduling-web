@@ -33,12 +33,14 @@ export const getTime = (timeStamp: number) => {
   const hour = date.getHours()
   const minutes = date.getMinutes()
   const hourMinutes = `${hour}:${minutes === 0 ? '00' : minutes}`
+  const fullDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
   return {
     hour,
     minutes,
     yearDate: date.toISOString().slice(0, 10),
     dayName: dayInWeek[date.getDay() - 1],
-    hourMinutes
+    hourMinutes,
+    fullDate
   }
 }
 
@@ -68,4 +70,9 @@ export const setHours = (hour: number, minutes: number, date?: number) => {
 
 export const getDurationInMinutes = (startTime: number, endTime: number) => {
   return (endTime - startTime) / 60
+}
+
+export const updateTimeInUnix = (targetTimeStamp: number, oldTimestamp: number) => {
+  const oldDate = getTime(oldTimestamp)
+  return setHours(oldDate.hour, oldDate.minutes, targetTimeStamp)
 }
