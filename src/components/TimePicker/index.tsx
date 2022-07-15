@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { getCurrTime } from 'utils'
 
 const hours = Array(24).fill(0).map((_, i) => i)
-const minutes = ['00', '15', '30', '45']
+const minutes = ['00', '15', '30', '45', '59']
 
 interface Props {
   name?: string
@@ -38,11 +37,12 @@ const TimePicker: React.FC<Props> = ({
       
       {show &&
         <div className='absolute flex  flex-col border-2 border-gray-700 h-60 overflow-y-auto rounded z-50 bg-white'>
-          {hours.map(h => 
-            minutes.map(m => {
+          {hours.map((h, i) => 
+            minutes.map((m, j) => {
               const time = `${h}:${m}`
-              return (
+              return i+1 !== hours.length && j+1 === minutes.length ? null : (
                 <button
+                  key={`${name}${i}${j}`}
                   className={`p-2 w-20 hover:bg-emerald-300 ${selectedTime === time ? 'bg-emerald-300' : ''}`}
                   onClick={() => onSelectTime(time)}
                 >
