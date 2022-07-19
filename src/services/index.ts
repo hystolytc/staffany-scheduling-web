@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ISchedule } from 'interfaces'
-const fetch = axios.create({ baseURL: 'http://localhost:5000/api' })
+const fetch = axios.create({ baseURL: process.env.REACT_APP_BASE_URL })
 
 export const getSchedules = async (): Promise<any> => {
   try {
